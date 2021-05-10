@@ -65,106 +65,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "description": "",
-                  "minItems": 1,
-                  "uniqueItems": true,
-                  "items": {
-                    "type": "object",
-                    "required": [
-                      "_id",
-                      "name",
-                      "brand",
-                      "categories",
-                      "image",
-                      "material",
-                      "volume",
-                      "amount"
-                    ],
-                    "properties": {
-                      "_id": {
-                        "type": "string",
-                        "minLength": 1
-                      },
-                      "name": {
-                        "type": "string",
-                        "minLength": 1
-                      },
-                      "brand": {
-                        "type": "string",
-                        "minLength": 1
-                      },
-                      "categories": {
-                        "type": "object",
-                        "properties": {
-                          "first": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "second": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "third": {
-                            "type": "string",
-                            "minLength": 1
-                          }
-                        },
-                        "required": [
-                          "first",
-                          "second",
-                          "third"
-                        ]
-                      },
-                      "image": {
-                        "type": "string",
-                        "minLength": 1
-                      },
-                      "material": {
-                        "type": "string",
-                        "minLength": 1
-                      },
-                      "volume": {
-                        "type": "string",
-                        "minLength": 1
-                      },
-                      "amount": {
-                        "type": "string",
-                        "minLength": 1
-                      }
-                    }
-                  },
-                  "x-examples": {
-                    "example-1": [
-                      {
-                        "_id": "609558154e3ef6461c0b0f90",
-                        "name": "Cerveja BUDWEISER Lata 350ml",
-                        "brand": "Budweiser",
-                        "categories": {
-                          "first": "60932a930710622024cad153",
-                          "second": "60932b250710622024cad19f",
-                          "third": "60932bdb0710622024cad36c"
-                        },
-                        "image": "https://i.ibb.co/3sDQSbD/bud-latinha.jpg",
-                        "material": "Lata",
-                        "volume": "350 ml",
-                        "amount": "1"
-                      },
-                      {
-                        "_id": "609558154e3ef6461c0b0f90",
-                        "name": "Cerveja BUDWEISER Lata 350ml",
-                        "brand": "Budweiser",
-                        "categories": {
-                          "first": "60932a930710622024cad153",
-                          "second": "60932b250710622024cad19f",
-                          "third": "60932bdb0710622024cad36c"
-                        },
-                        "image": "https://i.ibb.co/3sDQSbD/bud-latinha.jpg",
-                        "material": "Lata",
-                        "volume": "350 ml",
-                        "amount": "1"
-                      }
-                    ]
+                  "$ref": "#/components/schemas/Product"
+                },
+                "examples": {
+                  "example-product": {
+                    "$ref": "#/components/examples/ProductExample"
                   }
                 }
               }
@@ -172,10 +77,23 @@
           },
           "400": {
             "$ref": "#/components/responses/BadRequestError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
           }
         },
         "operationId": "get-products",
-        "description": ""
+        "description": "Busca os produtos disponíveis",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "name",
+            "description": "Busca pelo nome do produto"
+          }
+        ]
       },
       "parameters": []
     }
@@ -209,6 +127,67 @@
               "example": true
             }
           }
+        }
+      },
+      "Product": {
+        "type": "array",
+        "description": "",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+          "type": "object",
+          "required": [
+            "_id",
+            "name",
+            "brand",
+            "image",
+            "material",
+            "volume",
+            "amount"
+          ],
+          "properties": {
+            "_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "brand": {
+              "type": "string",
+              "minLength": 1
+            },
+            "image": {
+              "type": "string",
+              "minLength": 1
+            },
+            "material": {
+              "type": "string",
+              "minLength": 1
+            },
+            "volume": {
+              "type": "string",
+              "minLength": 1
+            },
+            "amount": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "x-examples": {
+          "example-1": [
+            {
+              "_id": "609330b0642b8120248dd5fc",
+              "name": "Cerveja BUDWEISER Lata 350ml",
+              "brand": "Budweiser",
+              "image": "https://i.ibb.co/3sDQSbD/bud-latinha.jpg",
+              "material": "Lata",
+              "volume": "350 ml",
+              "amount": "1"
+            }
+          ]
         }
       }
     },
@@ -263,6 +242,21 @@
             }
           }
         }
+      }
+    },
+    "examples": {
+      "ProductExample": {
+        "value": [
+          {
+            "_id": "609330b0642b8120248dd5fc",
+            "name": "Cerveja BUDWEISER Lata 350ml",
+            "brand": "Budweiser",
+            "image": "https://i.ibb.co/3sDQSbD/bud-latinha.jpg",
+            "material": "Lata",
+            "volume": "350 ml",
+            "amount": "1"
+          }
+        ]
       }
     }
   }
