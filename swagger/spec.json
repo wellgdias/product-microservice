@@ -92,6 +92,27 @@
             "in": "query",
             "name": "name",
             "description": "Busca pelo nome do produto"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "category",
+            "description": "Id da categoria"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "first",
+                "second",
+                "third"
+              ]
+            },
+            "in": "query",
+            "name": "type",
+            "description": "Nível da categoria"
           }
         ]
       },
