@@ -22,8 +22,13 @@ async function getAll() {
   try {
     const productCollection = await MongoHelper.getCollection('products');
     const response = await productCollection.find().toArray();
+
+    if (!response.length) {
+      return { data: [] };
+    }
+
     const products = response.map(mapperProduct);
-    return products;
+    return { data: products };
   } catch (error) {
     throw new ServiceError(error);
   }
@@ -35,11 +40,11 @@ async function getByName(name: string) {
     const response = await productCollection.find({ name: { $regex: name, $options: 'i' } }).toArray();
 
     if (!response.length) {
-      return [];
+      return { data: [] };
     }
 
     const products = response.map(mapperProduct);
-    return products;
+    return { data: products };
   } catch (error) {
     throw new ServiceError(error);
   }
@@ -58,11 +63,11 @@ async function getByCategory(category: string, type: string) {
     }
 
     if (!response.length) {
-      return [];
+      return { data: [] };
     }
 
     const products = response.map(mapperProduct);
-    return products;
+    return { data: products };
   } catch (error) {
     throw new ServiceError(error);
   }
