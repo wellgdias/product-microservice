@@ -114,6 +114,65 @@
         ]
       },
       "parameters": []
+    },
+    "/v1/products/id": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                },
+                "examples": {
+                  "example-product": {
+                    "$ref": "#/components/examples/ProductExample"
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "$ref": "#/components/responses/ServiceError"
+          }
+        },
+        "operationId": "get-products-by-id",
+        "description": "Busca os produtos disponíveis",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "x-examples": {
+                  "example-1": {
+                    "products": [
+                      "afdasfafd",
+                      "asfdasdfg"
+                    ]
+                  }
+                },
+                "properties": {
+                  "products": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "products"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "parameters": []
     }
   },
   "components": {

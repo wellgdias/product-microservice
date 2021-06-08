@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+import { ObjectId } from 'mongodb';
 import { ServiceError } from '../business/errors';
 import MongoHelper from '../helpers/mongodb/mongodb';
 
@@ -73,4 +74,23 @@ async function getByCategory(category: string, type: string) {
   }
 }
 
-export default { getAll, getByName, getByCategory };
+async function getById(ids: string[]) {
+  try {
+    const productCollection = await MongoHelper.getCollection('products');
+    const productIds = ids.map((id) => new ObjectId(id));
+    const response = await productCollection.find({ _id: { $in: productIds } }).toArray();
+
+    if (!response.length) {
+      return { data: [] };
+    }
+
+    const products = response.map(mapperProduct);
+    return { data: products };
+  } catch (error) {
+    throw new ServiceError(error);
+  }
+}
+
+export default {
+  getAll, getByName, getByCategory, getById,
+};
